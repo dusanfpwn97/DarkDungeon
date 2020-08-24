@@ -16,6 +16,7 @@ class DARKGAME_API UEnviromentStats : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UEnviromentStats();
+	//TODO
 	UPROPERTY(BlueprintReadWrite,VisibleAnywhere)
 	bool ShouldVisualizeLightLineTrace = false;
 
@@ -29,7 +30,6 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	float CalculateLightReceived(AActor* Actor);
-
 	UFUNCTION(BlueprintCallable)
 	TArray<ACustomLight*> GetOverlappingLights(AActor* Target);
 

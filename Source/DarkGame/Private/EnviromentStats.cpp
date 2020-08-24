@@ -25,6 +25,7 @@ void UEnviromentStats::BeginPlay()
 	
 }
 
+// Calculate the sum of the light received from all colliding lights
 float UEnviromentStats::CalculateLightReceived(AActor * Actor)
 {
 	AActor* Owner = GetOwner();
@@ -37,6 +38,7 @@ float UEnviromentStats::CalculateLightReceived(AActor * Actor)
 		{
 			for (ACustomLight* Light : OverlappingLights)
 			{
+				// Sum each individual light
 				LightReceived += CalculateLightApplied(Owner, Light);
 			}
 
@@ -81,16 +83,12 @@ float UEnviromentStats::CalculateLightApplied(AActor* Target, ACustomLight* Ligh
 		{
 			if (HitResult.GetActor() == Target)
 			{
-				float DistanceMultiplier = FMath::GetMappedRangeValueClamped(FVector2D(0, Light->PointLight->AttenuationRadius), FVector2D(1, 0), HitResult.Distance);
-				DistanceMultiplier *= Light->PointLight->Intensity / 1000;
-
 				float Result = 0;
 				float LightRadius = Light->PointLight->AttenuationRadius;
 
 				if (HitResult.Distance <= LightRadius)
 				{
 					Result = FMath::Pow(1.0 - (HitResult.Distance / LightRadius), ((Light->PointLight->LightFalloffExponent + 1) * (LightRadius * 1.25)*0.0001));
-					
 				}
 				else
 				{
