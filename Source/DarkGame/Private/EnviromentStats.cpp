@@ -3,6 +3,7 @@
 
 #include "EnviromentStats.h"
 #include "Engine/World.h"
+#include "DrawDebugHelpers.h"
 #include "..\Public\EnviromentStats.h"
 
 // Sets default values for this component's properties
@@ -28,20 +29,21 @@ void UEnviromentStats::BeginPlay()
 // Calculate the sum of the light received from all colliding lights
 float UEnviromentStats::CalculateLightReceived(AActor * Actor)
 {
-	AActor* Owner = GetOwner();
-	if (Owner)
+	if (Actor)
 	{
 		float LightReceived = 0;
-		TArray<ACustomLight*> OverlappingLights = GetOverlappingLights(Owner);
+		TArray<ACustomLight*> OverlappingLights = GetOverlappingLights(Actor);
 
 		if (OverlappingLights.Num() > 0)
 		{
 			for (ACustomLight* Light : OverlappingLights)
 			{
 				// Sum each individual light
-				LightReceived += CalculateLightApplied(Owner, Light);
+				LightReceived += CalculateLightApplied(Actor, Light);
 			}
+			LastLightReceived = LightReceived;
 
+			OnCalculationForLightCalled(LightReceived);
 			return LightReceived;
 		}
 	}
@@ -62,7 +64,7 @@ TArray<ACustomLight*> UEnviromentStats::GetOverlappingLights(AActor* Target)
 			OverlappingLights.Add(Cast<ACustomLight>(OverlappingActor));
 		}
 	}
-
+	
 	return OverlappingLights;
 }
 
@@ -77,10 +79,15 @@ float UEnviromentStats::CalculateLightApplied(AActor* Target, ACustomLight* Ligh
 		FHitResult HitResult;
 		FVector StartPos = Light->GetActorLocation();
 		FVector EndPos	 = Target->GetActorLocation();
-		ECollisionChannel CollisionChannel = ECollisionChannel::ECC_WorldDynamic;
+		ECollisionChannel CollisionChannel = ECollisionChannel::ECC_GameTraceChannel1;
 
 		if (World->LineTraceSingleByChannel(HitResult, StartPos, EndPos, CollisionChannel))
 		{
+			if (ShouldVisualizeLightReceivedTrace)
+			{
+				DrawDebugLine(World, StartPos, HitResult.Location, FColor(255, 228, 100), false, -1, 0, 1);
+			}
+			
 			if (HitResult.GetActor() == Target)
 			{
 				float Result = 0;
@@ -88,7 +95,7 @@ float UEnviromentStats::CalculateLightApplied(AActor* Target, ACustomLight* Ligh
 
 				if (HitResult.Distance <= LightRadius)
 				{
-					Result = FMath::Pow(1.0 - (HitResult.Distance / LightRadius), ((Light->PointLight->LightFalloffExponent + 1) * (LightRadius * 1.25)*0.0001));
+					Result = FMath::Pow(1 - (HitResult.Distance / LightRadius), ((Light->PointLight->LightFalloffExponent*2 + 1) * (LightRadius * 1.25)*0.0001));
 				}
 				else
 				{
