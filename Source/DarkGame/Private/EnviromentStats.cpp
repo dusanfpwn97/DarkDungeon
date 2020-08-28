@@ -101,7 +101,7 @@ float UEnviromentStats::CalculateLightApplied(AActor* Target, ACustomLight* Ligh
 				{
 					Result = 0.0f;
 				}
-
+				//
 				return Result;
 			}
 		}
