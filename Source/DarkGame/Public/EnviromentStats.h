@@ -17,29 +17,49 @@ public:
 	// Sets default values for this component's properties
 	UEnviromentStats();
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	bool ShouldCalculateLightReceived = true;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool ShouldVisualizeLightReceivedTrace = false;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float UpdateTimeCalculateLightReceived = 0.1f;
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	//
 public:	
-	// Called every frame
+	// Called every frame. I've commented it out because we might use it in the future
 	/*virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;*/
-	
-	UFUNCTION(BlueprintCallable)
-	float CalculateLightReceived(AActor* Actor);
+
+	UFUNCTION()
+	void CalculateLightReceived();
+
 	UFUNCTION(BlueprintCallable)
 	TArray<ACustomLight*> GetOverlappingLights(AActor* Target);
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnCalculationForLightCalled(float LightReceived);
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	float GetLastReceivedLightIntensity();
+
+	UFUNCTION(BlueprintCallable)
+	float CalculateLightApplied(AActor* Target, ACustomLight* LightThatApplies);
+
+	UFUNCTION(BlueprintCallable)
+	void StartCalculatingLightReceived();
+
+	UFUNCTION(BlueprintCallable)
+	void StopCalculatingLightReceived();
 private:
-	UFUNCTION()
-	float CalculateLightApplied(AActor* Target, ACustomLight* Light);
 
 	UPROPERTY()
-	float LastLightReceived = 0;
+	FTimerHandle CalculateLightReceivedTimerHandle;
+
+	UPROPERTY()
+	float LastReceivedLightIntensity = 0;
+
 };

@@ -16,41 +16,47 @@ UEnviromentStats::UEnviromentStats()
 	// ...
 }
 
-
 // Called when the game starts
 void UEnviromentStats::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
+	// Should start calculating on Begin Play? This bool can be check on or off in the component
+	if (ShouldCalculateLightReceived)
+	{
+		StartCalculatingLightReceived();
+	}
 }
 
 // Calculate the sum of the light received from all colliding lights
-float UEnviromentStats::CalculateLightReceived(AActor * Actor)
+void UEnviromentStats::CalculateLightReceived()
 {
-	if (Actor)
+	// Gets the actor that this component is attached to
+	AActor* Owner = GetOwner();
+
+	if (Owner)
 	{
-		float LightReceived = 0;
-		TArray<ACustomLight*> OverlappingLights = GetOverlappingLights(Actor);
+		float TempLightReceivedSum = 0;
+		TArray<ACustomLight*> OverlappingLights = GetOverlappingLights(Owner);
 
 		if (OverlappingLights.Num() > 0)
 		{
 			for (ACustomLight* Light : OverlappingLights)
 			{
-				// Sum each individual light
-				LightReceived += CalculateLightApplied(Actor, Light);
+				// Sum intensity for each overlapping light
+				TempLightReceivedSum += CalculateLightApplied(Owner, Light);
 			}
-			LastLightReceived = LightReceived;
 
-			OnCalculationForLightCalled(LightReceived);
-			return LightReceived;
+			LastReceivedLightIntensity = TempLightReceivedSum;
+		}
+		else
+		{
+			LastReceivedLightIntensity = 0;
 		}
 	}
-
-	return 0.f;
 }
 
+// Get all of the CustomLights that overlap the target actor
 TArray<ACustomLight*> UEnviromentStats::GetOverlappingLights(AActor* Target)
 {
 	TArray<AActor*> OverlappingActors;
@@ -68,6 +74,19 @@ TArray<ACustomLight*> UEnviromentStats::GetOverlappingLights(AActor* Target)
 	return OverlappingLights;
 }
 
+// Starts the timer for calculating the light received
+void UEnviromentStats::StartCalculatingLightReceived()
+{
+	ShouldCalculateLightReceived = true;
+
+	UWorld* World = GetWorld();
+	if (World)
+	{
+		GetWorld()->GetTimerManager().SetTimer(CalculateLightReceivedTimerHandle, this, &UEnviromentStats::CalculateLightReceived, UpdateTimeCalculateLightReceived, true);
+	}
+}
+
+// Calculate light applied to the Target Actor By a given light
 float UEnviromentStats::CalculateLightApplied(AActor* Target, ACustomLight* Light)
 {
 	UWorld* World = GetWorld();
@@ -76,6 +95,7 @@ float UEnviromentStats::CalculateLightApplied(AActor* Target, ACustomLight* Ligh
 	{
 		float LightApplied = 0;
 
+		// Setup LineTrace (RayTrace)
 		FHitResult HitResult;
 		FVector StartPos = Light->GetActorLocation();
 		FVector EndPos	 = Target->GetActorLocation();
@@ -108,5 +128,26 @@ float UEnviromentStats::CalculateLightApplied(AActor* Target, ACustomLight* Ligh
 	}
 
 	return 0.0f;
+}
+
+// Stops the timer for calculating the Light received
+void UEnviromentStats::StopCalculatingLightReceived()
+{
+	if (CalculateLightReceivedTimerHandle.IsValid())
+	{
+		GetWorld()->GetTimerManager().ClearTimer(CalculateLightReceivedTimerHandle);
+		ShouldCalculateLightReceived = false;
+	}
+}
+
+// Get the last calculated Received Light Intensity. If the timer is not active, calculate it and start the timer
+float UEnviromentStats::GetLastReceivedLightIntensity()
+{
+	if (!ShouldCalculateLightReceived)
+	{
+		CalculateLightReceived();
+		StartCalculatingLightReceived();
+	}
+	return LastReceivedLightIntensity;
 }
 
