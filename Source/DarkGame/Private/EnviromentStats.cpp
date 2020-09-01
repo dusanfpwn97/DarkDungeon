@@ -112,8 +112,10 @@ float UEnviromentStats::CalculateLightApplied(AActor* Target, ACustomLight* Ligh
 			{
 				float Result = 0;
 				float LightRadius = Light->PointLight->AttenuationRadius;
+				bool LightVisible = Light->PointLight->IsVisible(); //gs 09 01 20
 
-				if (HitResult.Distance <= LightRadius)
+			
+				if (HitResult.Distance <= LightRadius && LightVisible==true)
 				{
 					Result = FMath::Pow(1 - (HitResult.Distance / LightRadius), ((Light->PointLight->LightFalloffExponent*2 + 1) * (LightRadius * 1.25)*0.0001));
 				}
