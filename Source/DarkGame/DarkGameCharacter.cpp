@@ -72,14 +72,6 @@ void ADarkGameCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &ADarkGameCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &ADarkGameCharacter::TouchStopped);
 
-	// VR headset functionality
-	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ADarkGameCharacter::OnResetVR);
-}
-
-
-void ADarkGameCharacter::OnResetVR()
-{
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }
 
 void ADarkGameCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
