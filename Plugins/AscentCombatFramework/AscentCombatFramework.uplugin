@@ -1,0 +1,181 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.1.1",
+	"FriendlyName": "AscentCombatFramework",
+	"Description": "",
+	"Category": "AscentTools",
+	"CreatedBy": "Pask",
+	"CreatedByURL": "www.breakpointstudio.it",
+	"DocsURL": "https://docs.google.com/document/d/1cwYavs8NssxeAJs3MriJpGBKOtgKKjQwOU748lIOl8U/edit?usp=sharing",
+	"MarketplaceURL": "https://www.unrealengine.com/marketplace/en-US/product/19f41df17ac5412c96ac38cbaeb43810",
+	"SupportURL": "https://discord.gg/ahqhXnJ",
+	"EngineVersion": "4.25.0",
+	"CanContainContent": true,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "AscentCombatFramework",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"PS4",
+				"XboxOne",
+				"Switch",
+				"Linux"
+			]
+		},
+		{
+			"Name": "AdvancedRPGSystem",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"PS4",
+				"XboxOne",
+				"Switch",
+				"Linux"
+			]
+		},
+		{
+			"Name": "CinematicCameraManager",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"PS4",
+				"XboxOne",
+				"Switch",
+				"Linux"
+			]
+		},
+		{
+			"Name": "CollisionsManager",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"PS4",
+				"XboxOne",
+				"Switch",
+				"Linux"
+			]
+		},
+		{
+			"Name": "TargetingSystem",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"PS4",
+				"XboxOne",
+				"Switch",
+				"Linux"
+			]
+		},
+		{
+			"Name": "AbilitySystem",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"PS4",
+				"XboxOne",
+				"Switch",
+				"Linux"
+			]
+		},
+		{
+			"Name": "CraftingSystem",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"PS4",
+				"XboxOne",
+				"Switch",
+				"Linux"
+			]
+		},
+		{
+			"Name": "CombinedAnimationsSystem",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"PS4",
+				"XboxOne",
+				"Switch",
+				"Linux"
+			]
+		},
+		{
+			"Name": "MountSystem",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"PS4",
+				"XboxOne",
+				"Switch",
+				"Linux"
+			]
+		},
+		{
+			"Name": "ExecutionsSystem",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"PS4",
+				"XboxOne",
+				"Switch",
+				"Linux"
+			]
+		},
+		{
+			"Name": "LevelStreamer",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32",
+				"PS4",
+				"XboxOne",
+				"Switch",
+				"Linux"
+			]
+		},
+		{
+			"Name": "MusicManager",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "SpellActions",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "OnlineSubsystem",
+			"Enabled": true
+		},
+		{
+			"Name": "OnlineSubsystemUtils",
+			"Enabled": true
+		}
+	]
+}
