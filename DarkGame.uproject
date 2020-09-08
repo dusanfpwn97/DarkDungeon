@@ -32,6 +32,11 @@
 			"Name": "UIWS",
 			"Enabled": true,
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/97ef36447df7427ca9b46edf1a438731"
+		},
+		{
+			"Name": "SoundToolKit",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/c8263d08975a4d3dbd1f471bb5a6d708"
 		}
 	]
 }
