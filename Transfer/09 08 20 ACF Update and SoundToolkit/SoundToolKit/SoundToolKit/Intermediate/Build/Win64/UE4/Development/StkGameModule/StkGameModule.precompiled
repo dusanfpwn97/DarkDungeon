@@ -1,0 +1,7 @@
+{
+	"OutputFiles": [
+		"PCH.StkGameModule.h.obj",
+		"Module.StkGameModule.cpp.obj",
+		"Module.StkGameModule.gen.cpp.obj"
+	]
+}

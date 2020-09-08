@@ -1,0 +1,8 @@
+{
+	"BuildId": "13144385",
+	"Modules": 
+	{
+		"StkEditorModule": "UE4Editor-StkEditorModule.dll",
+		"StkGameModule": "UE4Editor-StkGameModule.dll"
+	}
+}
