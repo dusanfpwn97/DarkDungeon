@@ -1,0 +1,40 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "SoundToolKit Plugin",
+	"Description": "SoundToolKit uses geometrical techniques to approximate, how different sounds propagate in a dynamic virtual environment. It can predict, how a number of active sound sources influence the overall audible sound at any point in the scene. Thanks to the use of advanced optimization techniques on an algorithmic, architectural and code micro-optimisation levels, the resulting sound can be rendered in real time. The SoundToolKit solution extends the level of immersion of VR and AR devices, with which it creates a more immersive virtual environment.",
+	"Category": "Audio",
+	"CreatedBy": "Techmo",
+	"CreatedByURL": "http://techmo.pl",
+	"DocsURL": "http://techmo.pl/soundtoolkit/unreal/index.html",
+	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/c8263d08975a4d3dbd1f471bb5a6d708",
+	"SupportURL": "unreal@techmo.pl",
+	"EngineVersion": "4.25.0",
+	"CanContainContent": true,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "StkGameModule",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "StkEditorModule",
+			"Type": "Editor",
+			"LoadingPhase": "PostEngineInit",
+			"WhitelistPlatforms": [
+				"Win64"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ProceduralMeshComponent",
+			"Enabled": true
+		}
+	]
+}
