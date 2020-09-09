@@ -75,7 +75,7 @@ void ACharBase::ServerCalculateLightReceived_Implementation()
 				TempLightReceivedSum += CalculateLightApplied(ActorToCalculateFor, Light);
 			}
 
-			LastReceivedLightIntensity = TempLightReceivedSum;
+			LastReceivedLightIntensity = TempLightReceivedSum + AdditionalLightIntensity;
 		}
 		else
 		{
