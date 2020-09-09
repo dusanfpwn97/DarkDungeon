@@ -20,6 +20,12 @@ void ACharBase::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLife
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(ACharBase, LastReceivedLightIntensity);
+	DOREPLIFETIME(ACharBase, AdditionalLightIntensity);
+}
+
+void ACharBase::ServerChangeAdditionalLightIntensity_Implementation(float NewAdditinalLightIntensity)
+{
+	AdditionalLightIntensity = NewAdditinalLightIntensity;
 }
 
 // Called when the game starts or when spawned
@@ -142,10 +148,9 @@ float ACharBase::CalculateLightApplied(AActor* Target, ACustomLight* Light)
 				float LightRadius = Light->PointLight->AttenuationRadius;
 				bool LightVisible = Light->PointLight->IsVisible(); //gs 09 01 20
 
-
 				if (HitResult.Distance <= LightRadius && LightVisible == true)
 				{
-					Result = Light->PointLight->Intensity * 0.001 * FMath::Pow(1 - (HitResult.Distance / LightRadius), ((Light->PointLight->LightFalloffExponent * 2 + 1) * (LightRadius * 1.25)*0.0001));
+					Result = Light->LightAppliedMultiplier * Light->PointLight->Intensity * 0.001 * FMath::Pow(1 - (HitResult.Distance / LightRadius), ((Light->PointLight->LightFalloffExponent * 2 + 1) * (LightRadius * 1.25)*0.0001));
 				}
 				else
 				{

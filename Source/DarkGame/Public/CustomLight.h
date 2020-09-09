@@ -24,6 +24,10 @@ public:
 	USphereComponent* LightCollider;
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 	USceneComponent* SceneComponent;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		float LightAppliedMultiplier = 1;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
