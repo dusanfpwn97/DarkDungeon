@@ -27,7 +27,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		float BaseLookUpRate;
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Setup", Replicated)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup", Replicated)
 		float AdditionalLightIntensity = 0;
 
 	UFUNCTION(Server, Reliable)
