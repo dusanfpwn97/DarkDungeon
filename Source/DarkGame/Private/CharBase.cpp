@@ -131,18 +131,21 @@ float ACharBase::CalculateLightApplied(AActor* Target, ACustomLight* Light)
 
 		// Setup LineTrace (RayTrace)
 		FHitResult HitResult;
-		FVector StartPos = Light->GetActorLocation();
+		FVector StartPos = Light->PointLight->GetComponentLocation();
 		FVector EndPos = Target->GetActorLocation();
 		ECollisionChannel CollisionChannel = ECollisionChannel::ECC_GameTraceChannel1;
+		FCollisionQueryParams Query;
+		Query.AddIgnoredActor(Light);
 
-		if (World->LineTraceSingleByChannel(HitResult, StartPos, EndPos, CollisionChannel))
+		//
+		if (World->LineTraceSingleByChannel(HitResult, StartPos, EndPos, CollisionChannel, Query))
 		{
 			if (ShouldVisualizeLightReceivedTrace)
 			{
 				DrawDebugLine(World, StartPos, HitResult.Location, FColor(255, 228, 100), false, -1, 0, 1);
 			}
 
-			if (HitResult.GetActor() == Target)
+			if (HitResult.GetActor() == Target && HitResult.bBlockingHit)
 			{
 				float Result = 0;
 				float LightRadius = Light->PointLight->AttenuationRadius;
